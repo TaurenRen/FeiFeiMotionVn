@@ -1,7 +1,8 @@
-# FeiFeiMotionVn
+# FeiFeiMotionVn · feifei-motion-win
 
 > 用代码拍宣传片：一支片就是一个网页，配乐自己写谱，不满意就指着画面让它改。
 > Windows 上开箱即用 —— 28 项能力逐条验过，跨平台缺陷全部修好，附三道验收门。
+> 仓库 `feifei-motion-win` 就是这份 Windows 发行版本身。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Tested on](https://img.shields.io/badge/tested-Windows%2011%20%C2%B7%20Node%2022.22.2-blue)]()
@@ -54,7 +55,7 @@
 ## 三行开始
 
 ```powershell
-git clone https://github.com/TaurenRen/FeiFeiMotionVn.git ; cd FeiFeiMotionVn
+git clone https://github.com/TaurenRen/feifei-motion-win.git ; cd feifei-motion-win
 node engine\cli\om.js doctor        # 应该 4 个 ✓，不需要装任何东西
 
 `engine/` 就是本仓库自带的渲染内核（已经打好 Windows 补丁），克隆下来即可用。
@@ -76,7 +77,7 @@ python scripts\qc_gate.py engine my-film --render
 ## 里面有什么
 
 ```
-SKILL.md                操作手册（装成 agent skill 直接可用：npx skills add TaurenRen/FeiFeiMotionVn）
+SKILL.md                操作手册（装成 agent skill 直接可用：npx skills add TaurenRen/feifei-motion-win）
 engine/                 渲染内核：cli（om 命令）/ studio（编辑器）/ runtime / 12 模板 / 字体 / 样片
 patches/
   0001-windows.patch    跨平台修复本身（5 个文件 / 178 行）

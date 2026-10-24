@@ -229,7 +229,7 @@ NOTE  still at 9.37–11.97s, 15.2–16.77s, 23.23–26.87s
 ## 5. 复现路径（本仓库）
 
 ```
-git clone https://github.com/TaurenRen/FeiFeiMotionVn.git ; cd FeiFeiMotionVn
+git clone https://github.com/TaurenRen/feifei-motion-win.git ; cd feifei-motion-win
 
 # 1) 体检（自带内核，Windows 补丁已经打在里面）
 node engine\cli\om.js doctor

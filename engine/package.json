@@ -36,11 +36,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TaurenRen/FeiFeiMotionVn.git"
+    "url": "git+https://github.com/TaurenRen/feifei-motion-win.git"
   },
-  "homepage": "https://github.com/TaurenRen/FeiFeiMotionVn#readme",
+  "homepage": "https://github.com/TaurenRen/feifei-motion-win#readme",
   "bugs": {
-    "url": "https://github.com/TaurenRen/FeiFeiMotionVn/issues"
+    "url": "https://github.com/TaurenRen/feifei-motion-win/issues"
   },
   "author": "TaurenRen",
   "license": "MIT"

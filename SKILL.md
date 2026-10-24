@@ -12,7 +12,7 @@ description: 用代码做产品宣传片 / 数据解说 / 口播包装并在 Win
 3 项（新建 / 换画幅 / 演示片）原版静默失败需打补丁，1 项缺系统组件（7-Zip），1 项要换路径（口播）。
 交付实测：26.9 秒 1080p30 成片，渲 35–42 秒。
 
-仓库：`github.com/TaurenRen/FeiFeiMotionVn`（本 skill 就在仓库根，可直接 `npx skills add`）。
+仓库：`github.com/TaurenRen/feifei-motion-win`（本 skill 就在仓库根，可直接 `npx skills add`）。
 
 ---
 
@@ -30,7 +30,7 @@ description: 用代码做产品宣传片 / 数据解说 / 口播包装并在 Win
 ## 二、装机：两步，别跳
 
 ```
-git clone https://github.com/TaurenRen/FeiFeiMotionVn.git ; cd FeiFeiMotionVn
+git clone https://github.com/TaurenRen/feifei-motion-win.git ; cd feifei-motion-win
 node engine\cli\om.js doctor        # 必须 4/4
 ```
 
