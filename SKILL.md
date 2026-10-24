@@ -31,7 +31,8 @@ description: 在 Windows 上用 huashu-motion（花叔的「一键直出产品�
 
 ```powershell
 git clone https://github.com/alchaincyf/huashu-motion.git ; cd huashu-motion
-powershell -File <本skill目录>\..\..\patches\apply.ps1 -Repo .    # 或手工打 patches/0001-windows.patch
+# 本 skill 仓库里有 patches/apply.ps1，用绝对路径指向它
+pwsh -File <本仓库>\patches\apply.ps1 -Repo .
 node cli/om.js doctor
 ```
 

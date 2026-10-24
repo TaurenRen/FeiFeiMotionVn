@@ -34,9 +34,9 @@ if (-not $ForceCopy) {
   try {
     git apply --3way (Join-Path $here '0001-windows.patch') 2>$null
     if ($LASTEXITCODE -eq 0) { $applied = $true; Write-Host 'patched with git apply' }
-    else { Write-Host 'git apply did not take (context moved?) — falling back to copying the finished files' }
+    else { Write-Host 'git apply did not take (context moved?) - falling back to copying the finished files' }
   } catch {
-    Write-Host 'git apply unavailable — falling back to copying the finished files'
+    Write-Host 'git apply unavailable - falling back to copying the finished files'
   } finally { Pop-Location }
 }
 
@@ -66,7 +66,10 @@ try {
     throw "om new produced $count file(s) — the fs.cpSync fix is NOT in effect (expected ~33)"
   }
   Write-Host "om new -> $count files  OK"
-  $check = & $node $om check $tmp 2>&1 | Out-String
+  # om writes its report to stderr, and $ErrorActionPreference='Stop' would treat that as a failure
+  $prev = $ErrorActionPreference
+  $ErrorActionPreference = 'Continue'
+  try { $check = (& $node $om check $tmp 2>&1 | Out-String) } finally { $ErrorActionPreference = $prev }
   if ($check -match '(\d+) errors' -and [int]$Matches[1] -gt 0) {
     Write-Warning "om check still reports $($Matches[1]) error(s) on a fresh template:"
     Write-Host $check
