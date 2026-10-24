@@ -27,14 +27,16 @@ description: 用代码做产品宣传片 / 数据解说 / 口播包装并在 Win
 
 ---
 
-## 二、装机：三步，别跳
+## 二、装机：两步，别跳
 
-```powershell
+```
 git clone https://github.com/TaurenRen/FeiFeiMotionVn.git ; cd FeiFeiMotionVn
 node engine\cli\om.js doctor        # 必须 4/4
 ```
 
-`engine/` 是仓库自带的渲染内核，Windows 补丁已经打在里面；`om doctor` 认的是你机器上已有的 Chrome 与 FFmpeg，不另下渲染器。**四个 ✓ 缺一个就不要往下走。**
+`engine/` 是仓库自带的渲染内核，Windows 补丁已经打在里面——**不需要再装别的引擎**。
+skill 单独装（`npx skills add`）时只带手册和 scripts，跑之前仍要 clone 这个仓库拿 `engine/`。
+`om doctor` 认的是你机器上已有的 Chrome 与 FFmpeg，不另下渲染器。**四个 ✓ 缺一个就不要往下走。**
 
 ### 必须打的补丁（否则静默失败）
 
@@ -140,7 +142,7 @@ node engine\cli\om.js done <id> <项目> --note "把数字从 104px 放大到 15
 ### 8. 三道验收门（别靠眼睛扫输出）
 
 ```powershell
-python scripts\qc_gate.py <引擎目录> <项目> --render
+python scripts\qc_gate.py engine <项目> --render
 ```
 
 | 门 | 查什么 | 拦什么 |
