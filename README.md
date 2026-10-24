@@ -55,9 +55,9 @@
 
 ```powershell
 git clone https://github.com/TaurenRen/FeiFeiMotionVn.git ; cd FeiFeiMotionVn
-git clone https://github.com/alchaincyf/huashu-motion.git .engine      # 引擎
-pwsh -File patches\apply.ps1 -Repo .engine                            # 打跨平台补丁
-node .engine\cli\om.js doctor                                         # 应该 4 个 ✓
+node engine\cli\om.js doctor        # 应该 4 个 ✓，不需要装任何东西
+
+`engine/` 就是本仓库自带的渲染内核（已经打好 Windows 补丁），克隆下来即可用。
 ```
 
 然后照流程走：`grab` → `new` → `studio` → `inbox --wait` → `check` → `render` → `qa`。
@@ -65,11 +65,11 @@ node .engine\cli\om.js doctor                                         # 应该 4
 验收别靠眼睛扫输出：
 
 ```powershell
-python scripts\qc_gate.py .engine my-film --render
+python scripts\qc_gate.py engine my-film --render
 # GATE 1 doctor → GATE 2 check → GATE 3 qa → PASS cuts=10 mean motion=0.85/s
 ```
 
-`apply.ps1` 优先 `git apply`；引擎版本对不上时自动走拷贝兜底（`patches/files/` 就是打好补丁的那五个文件，会先备份成 `.orig`），打完自己跑一个 `om new` 数文件个数——少于 33 个就算失败。
+`patches/` 记的是**改动本身**：`apply.ps1` 能把同样的修复打到一份干净的上游 v0.3.1 上（优先 `git apply`，对不上就走拷贝兜底，打完自己跑一个 `om new` 数文件个数——少于 33 个就算失败）。`engine/` 是打完的结果，日常用不到 `patches/`。
 
 ---
 
@@ -77,9 +77,10 @@ python scripts\qc_gate.py .engine my-film --render
 
 ```
 SKILL.md                操作手册（装成 agent skill 直接可用：npx skills add TaurenRen/FeiFeiMotionVn）
+engine/                 渲染内核：cli（om 命令）/ studio（编辑器）/ runtime / 12 模板 / 字体 / 样片
 patches/
-  0001-windows.patch    5 个文件 / 178 行
-  apply.ps1             一键打补丁 + 冒烟验证
+  0001-windows.patch    跨平台修复本身（5 个文件 / 178 行）
+  apply.ps1             把修复打到一份干净的上游上 + 冒烟验证
   files/                打好补丁的成品文件（git 不可用时的兜底）
 scripts/
   qc_gate.py            三道验收门（doctor → check → qa），不合格就拦住不让渲染
@@ -88,8 +89,10 @@ scripts/
   splice_script.py      把动画脚本同步进 index.html（这支片迭代 5 版全靠它）
   drive_studio.mjs      用 CDP 驱动编辑器走完「按 C → 点画面 → 写评论 → 发送」
   sync_github.py        不走 git push 的推送（本机 HTTPS 通道被拦，改走 Git Data API）
+tools/
+  rebrand.py            把上游引擎改名成 FeiFeiMotionVn 的那一次批量替换（可复现）
 evidence/
-  logs/                 28 份原始输出
+  logs/                 30 份原始输出
   screenshots/          编辑器界面、关键帧、色板对照
   films/                成片 mp4 / gif、编辑器操作录屏
 ```
@@ -114,9 +117,10 @@ evidence/
 
 ## 依赖与致谢
 
-- **渲染引擎**：[huashu-motion](https://github.com/alchaincyf/huashu-motion)（MIT）。本仓库是它在 Windows 上的发行版与验收体系——渲染器、模板、音色引擎、编辑器界面均来自该引擎，`patches/` 基于其 v0.3.1。保留这行是 MIT 的要求，也是事实。
+- 本项目自带渲染内核（`engine/`），它来自一个 MIT 许可的上游引擎，本发行版做了重命名与跨平台改造。
+  MIT 要求副本随源码保留版权声明，所以原始出处放在 [`NOTICE`](NOTICE) —— 产品命名是本项目的，法律上的出处在那份声明里。
 - 动画库 [GSAP](https://gsap.com)（GSAP Standard License）；随附字体为 SIL OFL 1.1；真乐器采样为 CC0/CC-BY，由引擎在 `samples build` 时从原处下载。
-- 本仓库新增的代码（`scripts/`、`patches/` 中的跨平台修复、文档与验收门）为 MIT，见 [LICENSE](LICENSE)。
+- 本仓库的修复、脚本、文档与验收门为 MIT，见 [LICENSE](LICENSE)。
 
 ---
 

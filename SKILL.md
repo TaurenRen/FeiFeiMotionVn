@@ -30,12 +30,11 @@ description: 用代码做产品宣传片 / 数据解说 / 口播包装并在 Win
 ## 二、装机：三步，别跳
 
 ```powershell
-git clone https://github.com/alchaincyf/huashu-motion.git .engine      # 渲染引擎（MIT）
-pwsh -File patches\apply.ps1 -Repo .engine                            # 跨平台补丁 + 冒烟验证
-node .engine\cli\om.js doctor                                         # 必须 4/4
+git clone https://github.com/TaurenRen/FeiFeiMotionVn.git ; cd FeiFeiMotionVn
+node engine\cli\om.js doctor        # 必须 4/4
 ```
 
-`om doctor` 认的是你机器上已有的 Chrome 与 FFmpeg，不另下渲染器。**四个 ✓ 缺一个就不要往下走。**
+`engine/` 是仓库自带的渲染内核，Windows 补丁已经打在里面；`om doctor` 认的是你机器上已有的 Chrome 与 FFmpeg，不另下渲染器。**四个 ✓ 缺一个就不要往下走。**
 
 ### 必须打的补丁（否则静默失败）
 
@@ -48,9 +47,9 @@ node .engine\cli\om.js doctor                                         # 必须 4
 **验证补丁生效**（不要只信 `created` 那一行）：
 
 ```powershell
-node .engine\cli\om.js new t --template kinetic-type
+node engine\cli\om.js new t --template kinetic-type
 (Get-ChildItem -Recurse t -File).Count      # 必须是 33，不是 1
-node .engine\cli\om.js check t              # 必须 0 errors
+node engine\cli\om.js check t              # 必须 0 errors
 ```
 
 ---
@@ -60,8 +59,8 @@ node .engine\cli\om.js check t              # 必须 0 errors
 ### 1. 读产品、抓素材（`om grab`）
 
 ```powershell
-node .engine\cli\om.js grab https://产品官网 ../proj      # 网页：2x 整页截图、logo 候选、品牌色、字体
-node .engine\cli\om.js grab D:\本地工程\ ../proj          # 本地：README 图、截图、媒体、样式表里的颜色
+node engine\cli\om.js grab https://产品官网 ../proj      # 网页：2x 整页截图、logo 候选、品牌色、字体
+node engine\cli\om.js grab D:\本地工程\ ../proj          # 本地：README 图、截图、媒体、样式表里的颜色
 ```
 
 - **纪律**：抓完必须打开 `materials.md` 逐行看。它会如实写「no logo or icon file found」「no screenshots」——那不是失败，是让你别画灰方块冒充产品。
@@ -109,7 +108,7 @@ node .engine\cli\om.js grab D:\本地工程\ ../proj          # 本地：README 
 ```powershell
 python scripts\score_build.py            # 校验每个声部每小节 == 4 单位，不合格就不写文件
 python scripts\sync_score.py <项目>       # 把 .abc 同步进 index.html 的 om-score
-node .engine\cli\om.js sound <项目>
+node engine\cli\om.js sound <项目>
 ```
 
 `om sound` 的报告必须看这三行，任何一行不对就回去改小节：
@@ -126,11 +125,11 @@ energy   title -16.2 · claim -19.0 · … · numbers -15.1   ← 应逐级抬�
 ### 7. 指着画面改（这是它区别于 Remotion 的地方）
 
 ```powershell
-node .engine\cli\om.js studio <项目>          # 你：按 C → 点画面 → 写评论 → 发送
-node .engine\cli\om.js inbox <项目> --wait    # agent：接下一条（自动 claim）
-node .engine\cli\om.js look <id> <项目>       # 存整帧 + 点击处 2x 特写，先看再改
+node engine\cli\om.js studio <项目>          # 你：按 C → 点画面 → 写评论 → 发送
+node engine\cli\om.js inbox <项目> --wait    # agent：接下一条（自动 claim）
+node engine\cli\om.js look <id> <项目>       # 存整帧 + 点击处 2x 特写，先看再改
 …改代码…
-node .engine\cli\om.js done <id> <项目> --note "把数字从 104px 放大到 156px"
+node engine\cli\om.js done <id> <项目> --note "把数字从 104px 放大到 156px"
 ```
 
 评论到手时自带 `00:00.00 · 场景 title` 和目标元素，**不要**凭标题猜用户在看哪儿——`om look` 存在的意义就是先看。
@@ -157,11 +156,11 @@ python scripts\qc_gate.py <引擎目录> <项目> --render
 ### 9. 交付
 
 ```powershell
-node .engine\cli\om.js render   <项目>                      # out/film-vN.mp4
-node .engine\cli\om.js render   <项目> --transparent        # ProRes 4444 带 alpha，给剪映/Premiere
-node .engine\cli\om.js fork     <项目> <新目录> --size 1080x1920   # 竖屏副本 + 收件箱里的重排任务
-node .engine\cli\om.js share    <项目>                      # ≤10MB GIF + share.md 发帖文案
-node .engine\cli\om.js export html <项目>                   # 播放器 + source.zip 的分享页
+node engine\cli\om.js render   <项目>                      # out/film-vN.mp4
+node engine\cli\om.js render   <项目> --transparent        # ProRes 4444 带 alpha，给剪映/Premiere
+node engine\cli\om.js fork     <项目> <新目录> --size 1080x1920   # 竖屏副本 + 收件箱里的重排任务
+node engine\cli\om.js share    <项目>                      # ≤10MB GIF + share.md 发帖文案
+node engine\cli\om.js export html <项目>                   # 播放器 + source.zip 的分享页
 ```
 
 ---

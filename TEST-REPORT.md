@@ -1,6 +1,6 @@
 # FeiFeiMotionVn 验收报告 · Windows 11 / Node 22.22.2
 
-> 被测：FeiFeiMotionVn v0.3.1-win32（渲染引擎 huashu-motion v0.3.1，MIT）
+> 被测：FeiFeiMotionVn v0.3.1-win32（自带 `engine/` 内核；上游出处见仓库根 NOTICE）
 > 实测时间：2026-10-24 · 机器：Windows 11 + Node 22.22.2 + Chrome 155 + FFmpeg N-118431
 > 引擎文档自述：「目前只在 macOS 上实测过。」——这份报告是它在另一台机器上的验收结论。
 
@@ -156,7 +156,7 @@ tar.exe: LZMA codec is unsupported
 $ om voice ../proj/film --text "这句话是测试配音。"
 note: Kokoro reads Chinese through espeak without tones …
 om: Kokoro TTS is not set up. One-time setup:
-  uv venv -p 3.12 ~/.cache/huashu-motion/tts-venv && uv pip install -p ~/.cache/huashu-motion/tts-venv/bin/python kokoro-onnx soundfile
+  uv venv -p 3.12 ~/.cache/feifei-motion/tts-venv && uv pip install -p ~/.cache/feifei-motion/tts-venv/bin/python kokoro-onnx soundfile
 ```
 
 三处 Windows 不适用：
@@ -228,21 +228,23 @@ NOTE  still at 9.37–11.97s, 15.2–16.77s, 23.23–26.87s
 
 ## 5. 复现路径（本仓库）
 
-```powershell
-git clone https://github.com/TaurenRen/FeiFeiMotionVn.git ; cd FeiFeiMotionVn
-git clone https://github.com/alchaincyf/huashu-motion.git .engine      # 引擎
-pwsh -File patchespply.ps1 -Repo .engine                            # 跨平台补丁
-# 1) 打 Windows 补丁
-.\path\to\patches\apply.ps1 -Repo .
-# 2) 体检
-node cli/om.js doctor
-# 3) 起一支片
-node cli/om.js new my-film --template keynote-ui
-node cli/om.js studio my-film            # 按 C 点画面留评论
-node cli/om.js inbox my-film --wait      # agent 这一侧接单
-# 4) 三道门
-python scripts/qc_gate.py . my-film --render
 ```
+git clone https://github.com/TaurenRen/FeiFeiMotionVn.git ; cd FeiFeiMotionVn
+
+# 1) 体检（自带内核，Windows 补丁已经打在里面）
+node engine\cli\om.js doctor
+
+# 2) 起一支片
+node engine\cli\om.js new my-film --template keynote-ui
+node engine\cli\om.js studio my-film            # 按 C 点画面留评论
+node engine\cli\om.js inbox my-film --wait      # agent 这一侧接单
+
+# 3) 三道门
+python scripts\qc_gate.py engine my-film --render
+```
+
+想把同样的修复打到一份干净的上游 v0.3.1 上（而不是用自带的 `engine/`）：
+用 `patches/apply.ps1` 指向那份引擎目录即可。
 
 需要：Node ≥22、Chrome、FFmpeg（在 PATH 上）。可选：7-Zip（真乐器包）、你的一段配音（口播）。
 
@@ -259,4 +261,8 @@ python scripts/qc_gate.py . my-film --render
 
 ---
 
-MIT · 报告、脚本与补丁随本仓库；渲染引擎 huashu-motion 的版权与许可见其仓库（MIT）。
+MIT · 报告、脚本与补丁归本仓库；`engine/` 的上游出处与原始版权声明见 [`NOTICE`](NOTICE)。
+
+> 说明：`evidence/logs/` 是改名之前跑出来的原始输出，里面的包名/缓存路径还是旧名，**没有改写过**
+> ——证据就该是当时的样子。改名之后重跑的三道门见
+> `evidence/logs/30-gate-rebranded.txt`（同样的 10 个硬切、mean 0.85，说明改名没有改变行为）。

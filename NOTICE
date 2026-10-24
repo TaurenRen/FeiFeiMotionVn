@@ -1,0 +1,20 @@
+FeiFeiMotionVn · NOTICE
+=======================
+
+FeiFeiMotionVn 是基于 huashu-motion 渲染引擎的重命名发行版（rebranded distribution）。
+
+引擎原本是 MIT 许可，MIT 要求「副本随源码一起保留版权声明」。`engine/` 里就是这些源码
+的修改副本，所以原始声明必须留在这里——这是法律要求，不是署名习惯：
+
+    MIT License
+    Copyright (c) Huashu
+    Upstream: https://github.com/alchaincyf/huashu-motion
+
+除此之外，本仓库里的一切都是新做的：
+
+  * Windows 跨平台修复（`patches/`，同样的改动已经应用到 `engine/` 里）
+  * `scripts/`：三道验收门、ABC 谱生成器、编辑器 CDP 驱动、GitHub API 推送
+  * `tools/rebrand.py`：本发行版就是用它把 huashu 换成 feifei 的，可复现
+  * `README.md` / `SKILL.md` / `TEST-REPORT.md`，以及 `evidence/` 里的成片与证据
+
+这些是 MIT，版权归 TaurenRen，见 LICENSE。
