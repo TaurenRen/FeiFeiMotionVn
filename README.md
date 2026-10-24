@@ -57,9 +57,9 @@
 ```powershell
 git clone https://github.com/TaurenRen/feifei-motion-win.git ; cd feifei-motion-win
 node engine\cli\om.js doctor        # 应该 4 个 ✓，不需要装任何东西
+```
 
 `engine/` 就是本仓库自带的渲染内核（已经打好 Windows 补丁），克隆下来即可用。
-```
 
 然后照流程走：`grab` → `new` → `studio` → `inbox --wait` → `check` → `render` → `qa`。
 
