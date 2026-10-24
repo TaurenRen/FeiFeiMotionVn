@@ -1,0 +1,9 @@
+sound    D:\02-短视频\WB视频创作\huashu-motion实测-20261024\proj\film\assets\sound.wav  27.80s  -14.0 LUFS, peak -1.5 dBFS
+music    om-score "Windows Test (tech launch cue: hook -> claim -> ticking doctor -> build -> drop -> button)" · 314 notes · PLK:synpluck SAW:supersaw PNO:piano BAS:synbass DR:drums · ends 26.38s
+print    100 BPM Dm · drums:pop piano supersaw synbass synpluck
+warning  this is the band of the example score signal.abc (128 BPM Em · drums:808 drums:pop piano supersaw synbass synpluck violins; 71 % of the instruments shared) — the examples teach structure, not a sound. Choose the band, tempo and key from the film's music direction (music.md)
+fit      marks on the picture: title 0.00s · claim 4.80s · doctor 7.20s · break 12.00s · numbers 16.80s · end 21.60s
+tempo    title→claim 100.0 bpm (-0.0%) · claim→doctor 100.0 bpm (+0.0%) · doctor→break 100.4 bpm (+0.4%) · break→numbers 100.0 bpm (+0.0%) · numbers→end 100.4 bpm (+0.4%)
+energy   title -16.2 · claim -19.0 · doctor -16.4 · break -15.2 · numbers -15.1 · end -17.8 dB RMS — should rise in steps, dip at the stop and peak at the drop (rhythm.md)
+effects  15 hits: tick×5, whoosh×1, click×1, type×1, thud×2, count×1, ding×3, stamp×1
+took     6.4s

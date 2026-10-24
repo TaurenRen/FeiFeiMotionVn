@@ -1,0 +1,4 @@
+sampled  6 frames
+compared 4 frames reached two ways
+! warning no-real-material   the film loads no image, video or logo file — if it is about a product, it is drawing the product instead of showing it. Collect the real material first (om grab <url|folder>) and build from it: the logo file, real screenshots or recordings, a rebuild only traced over a capture (SKILL.md step 1)
+0 errors, 1 warning  (D:\02-短视频\WB视频创作\huashu-motion实测-20261024\proj\film)

@@ -1,0 +1,24 @@
+blank            Title, a big number and an end card. The smallest project that follows the whole contract — start here for anything custom.
+                 good for: anything custom, kinetic titles, a starting point
+finance-chart    Economist-style data chart: layout, then axes, then the data grows, then one annotation. Bars, line or K-line from a JSON series.
+                 good for: revenue, growth and share figures, a trend with one turning point, numbers viewers will screenshot and check
+keynote-ui       Dark glowing backdrop, one thing per screen: a title floats out of blur, glass cards spring in, a screenshot gets a highlight box, a big number counts up.
+                 good for: product and feature launches, release notes and specs, a tutorial step with a screenshot, one headline number
+kinetic-type     Words are the actors: one page per beat, the key word slams in, a colour band wipes to the next page, a progress track counts the list and a highlighter hits the punch word.
+                 good for: lists and stages (3 reasons, 3 steps), chapter cards and openers, a one-line takeaway, a single number
+kurzgesagt       A glowing planet is the concept, each point a satellite node with a label; the camera zooms into one node and comes out inside it — what is inside.
+                 good for: what is inside X, systems and their parts, scale and levels, calm science narration
+math-3b1b        Black board, one idea on screen at a time: a title is written, an equation transforms into the next, a curve morphs, points are written and one gets boxed.
+                 good for: how a mechanism turns into the next step, math, ML and algorithm explainers, formulas whose symbols match colours on screen
+object-3d        The product's real things as objects in a lit studio — its screenshot on a floating device, its logo or icon SVG extruded — with one continuous camera: a low swinging reveal, a push into a detail with the focus following, a crane round the whole object, a hero frame with type.
+                 good for: a premium launch or a hero shot, a logo, an icon or a device as a real object, strong camera moves through a space, a first second that already moves
+storytime        A stick-bean character talks in a little room with speech bubbles, cuts to the computer screen for a punchline number, then a silent reaction close-up and a closing question mark.
+                 good for: first-person stories and fails, a joke that needs a pause, I asked the AI and it... moments
+talking-head     口播包装: a talking-head video (assets/talk.mp4) with a name plate, count-up number cards, keyword 花字, a chapter card and a corner badge, each landing on a spoken word. Lays out for 16:9 and 9:16, keeps off the speaker, and exports the package alone as transparent ProRes 4444.
+                 good for: talking-head / 口播 videos, interview and vlog packaging, name plates and lower thirds, transparent overlays for 剪映 / Premiere / Final Cut, vertical 9:16 shorts
+ui-space         A real screenshot cut into layers that fly apart in depth, pieces rebuilt in code where they change, one continuous 3D camera that swings, pushes into a comment and settles on the flat interface, then pans to the title. Text stays sharp and pickable.
+                 good for: a software product or an app launch, showing how an interface is built (layers, panels), a first second that already moves, a UI tour without slides
+vox-collage      Screenshots and note cards are taped onto a paper desk and tied with red string; a highlighter and a red circle mark the line that matters while the camera follows.
+                 good for: arguments built on real screenshots, documents or clippings, news and history explainers, look at this line / this number
+whiteboard       A marker writes each sentence as it is said, draws a doodle icon beside it, links icons with arrows, circles the key point and pulls back to show the whole board.
+                 good for: step-by-step reasoning, why does X happen, a chain of causes, lecture-style narration

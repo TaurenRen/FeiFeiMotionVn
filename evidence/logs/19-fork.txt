@@ -1,0 +1,2 @@
+forked 1920×1080 → 1080×1920: D:\02-短视频\WB视频创作\huashu-motion实测-20261024\proj\film-vertical
+inbox  cf78c33 — re-lay it out for the new frame (om inbox ../proj/film-vertical --wait picks it up)

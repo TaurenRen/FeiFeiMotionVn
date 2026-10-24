@@ -1,0 +1,4 @@
+.sync-tmp/
+*.orig
+node_modules/
+.chrome/

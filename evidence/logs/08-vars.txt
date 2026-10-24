@@ -1,0 +1,6 @@
+titleWord          string  "一句话出片"   开场主词
+titleSub           string  "三个动作"   开场辅句
+item1              string  "补全"   第 1 项主词（清空就少一页）
+item1Sub           string  "它补完下一行"   第 1 项辅句
+item1Key           string  "下一行"   第 1 项辅句里要着色的词
+item1Label         string  "阶段 01"   第 1 项左上小标签

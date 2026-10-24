@@ -1,0 +1,4 @@
+note: Kokoro reads Chinese through espeak without tones — whisper could not understand it in our tests. Prefer say:Tingting (macOS) or your own recording (--audio).
+tts 1/1 (kokoro:zf_xiaobei) 这句话是测试配音。
+om: Kokoro TTS is not set up. One-time setup:
+  uv venv -p 3.12 ~/.cache/huashu-motion/tts-venv && uv pip install -p ~/.cache/huashu-motion/tts-venv/bin/python kokoro-onnx soundfile

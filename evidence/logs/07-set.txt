@@ -1,0 +1,1 @@
+set titleWord, titleSub, duration

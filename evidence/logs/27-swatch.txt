@@ -1,0 +1,6 @@
+swatch   D:\02-短视频\WB视频创作\huashu-motion实测-20261024\shots\swatch.png
+         3 palettes — open it beside the key frames; the user can choose colour apart from composition
+         #1                       ground L 0.05 · ink 18.1:1
+         #2                       ground L 0.95 · ink 16.4:1
+         #3                       ground L 0.08 · ink 16.2:1
+         warning  all directions are "neutral ground + one accent" — fine when that is the brand (say so in "— from:"); otherwise vary the strategy (colour.md §3)

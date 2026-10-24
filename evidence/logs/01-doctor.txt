@@ -1,0 +1,4 @@
+✓ Node 22.22.2
+✓ FFmpeg + ffprobe (render, sound, qa)
+✓ encoders mp4 · mov · webm · gif
+✓ Chrome  (C:\Program Files\Google\Chrome\Application\chrome.exe)

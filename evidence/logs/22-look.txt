@@ -1,0 +1,3 @@
+frame at 0.00s — open these images to see what the user saw:
+  D:\02-短视频\WB视频创作\huashu-motion实测-20261024\proj\film\.om\look\cf113a7-mvme5dha\frame.png
+  D:\02-短视频\WB视频创作\huashu-motion实测-20261024\proj\film\.om\look\cf113a7-mvme5dha\zoom.png   (close-up 480×270 at 2x around x=599 y=461)

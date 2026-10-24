@@ -1,0 +1,15 @@
+✗ error   missing-file       index.html:27  vendor/om.js does not exist
+✗ error   missing-file       index.html:66  vendor/clip/lib/util.js does not exist
+✗ error   missing-file       index.html:67  vendor/clip/lib/paint.js does not exist
+✗ error   missing-file       index.html:68  vendor/clip/lib/kit.js does not exist
+✗ error   missing-file       index.html:69  vendor/clip/lib/motion.js does not exist
+✗ error   missing-file       index.html:70  vendor/clip/lib/camera.js does not exist
+✗ error   missing-file       index.html:71  vendor/clip/lib/diagram.js does not exist
+✗ error   missing-file       index.html:72  vendor/clip/lib/typo.js does not exist
+✗ error   missing-file       index.html:73  vendor/clip/lib/chart.js does not exist
+✗ error   missing-file       index.html:74  vendor/clip/lib/ui.js does not exist
+✗ error   missing-file       index.html:75  vendor/clip/lib/collage.js does not exist
+✗ error   missing-file       index.html:76  vendor/clip/lib/toon.js does not exist
+✗ error   missing-file       index.html:79  vendor/clip/grammars/y5_kinetic_type.js does not exist
+! warning no-real-material   the film loads no image, video or logo file — if it is about a product, it is drawing the product instead of showing it. Collect the real material first (om grab <url|folder>) and build from it: the logo file, real screenshots or recordings, a rebuild only traced over a capture (SKILL.md step 1)
+13 errors, 1 warning  (D:\02-短视频\WB视频创作\huashu-motion实测-20261024\proj\t-kinetic)

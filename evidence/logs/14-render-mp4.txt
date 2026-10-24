@@ -1,0 +1,6 @@
+rendering in your Chrome…
+sound    D:\02-短视频\WB视频创作\huashu-motion实测-20261024\proj\film\assets\sound.wav  26.90s  -14.0 LUFS, peak -1.5 dBFS
+signature on: "Made with huashu-motion" in a free corner for the last 1.2s (data-om-signature="off" on the root removes it)
+(node:139256) MaxListenersExceededWarning: Possible EventEmitter memory leak detected. 11 close listeners added to [ChildProcess]. MaxListeners is 10. Use emitter.setMaxListeners() to increase limit
+(Use `node --trace-warnings ...` to show where the warning was created)
+D:\02-短视频\WB视频创作\huashu-motion实测-20261024\proj\film\out\film-v1.mp4

@@ -1,0 +1,3 @@
+D:\02-短视频\WB视频创作\huashu-motion实测-20261024\proj\film\out\film-share-v3
+  index.html   open it, or put the folder on any static host (GitHub Pages, Vercel, npx serve)
+  source.zip   18 files — unzip and run om studio film

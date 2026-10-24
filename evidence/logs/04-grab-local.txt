@@ -1,0 +1,7 @@
+grab     D:/02-短视频/WB视频创作/material-reach
+  materials/local-material-reach/  logo 0 · screens 0 · images 2 · video 0
+  colours  none found
+  type     none found
+  materials.md  updated — look at every file before choosing a direction (om still can't see them for you)
+  ! no logo or icon file found — look in the app bundle, the site (om grab <url>) or ask the user
+  ! no screenshots or recordings — run the product and capture it

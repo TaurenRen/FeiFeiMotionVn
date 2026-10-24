@@ -1,0 +1,20 @@
+## This user's preferences: none recorded yet (C:\Users\Administrator\.huashu-motion\experience.md)
+
+## Experience (29) — what past films found; the actual film wins when they disagree, then fix the entry
+
+## 2026-10-17 | Three traps met while rebuilding a launch film
+
+- `OM.beat()` needs the bpm, so `OM.music({ bpm, end: B(54) })` throws: the argument is evaluated before the call. Set the bpm in one call and anything computed from beats in a second `OM.music({ end })`.
+- Masked letters hidden with `yPercent: 110` peek out when the mask has descender padding (`padding-bottom: .26em`): the tops of the glyphs showed as fragments for the whole film. Hide at `yPercent: 140` (more than line + padding).
+- An initial `transform: translateY(110%)` in CSS on an element GSAP later moves with `yPercent` does not combine cleanly; exits left captions stacked on screen. Set the hidden state with `gsap.set` instead of CSS.
+- Evidence: snapshots of the same project; each fixed and re-checked by frame.
+- Confidence: reproduced.
+
+## 2026-10-17 | Chinese type and captions over a moving camera
+
+- Finding: the user called some text "ugly" and pointed at a caption sitting on the UI card. The Chinese was a Noto Sans SC subset in 500/700 (CSS 600 snapped to 700): heavy and blunt next to Figtree. The overlap came from a slow push-in (zoom 1.12) that carried the card's bottom edge into the caption band.
+- Do: when the brand's site renders Chinese in the system font, use PingFang SC (Light for big taglines, Regular for captions, Medium/Semibold for UI titles), keep the Latin face for Latin, and only request weights the font has. For every caption, compute the UI's on-screen bottom under the camera at that moment (`540 + zoom × (bottom − focusY)`) and keep it above the caption band, or move the caption. Break long CJK lines by meaning (`<br>` + `nowrap`) instead of letting one or two characters wrap alone.
+- Evidence: outputs/today-launch-20261017, v5 → v6 frames at 11.2 s and 14.7 s; the user's screenshot of v5 at 0:10.
+- Confidence: verified by frames. PingFang is a local macOS system font, not redistributable; a render on another OS needs a licensed substitute.
+
+## 2026-10-17 | Gathering a product's history (old launches, archived sites)

@@ -1,0 +1,178 @@
+diff -ruN '--exclude=.om' '--exclude=out' '--exclude=node_modules' _orig/cli/lib/fork.js repo/cli/lib/fork.js
+--- a/cli/lib/fork.js	2026-10-22 20:19:32.000000000 +0800
++++ b/cli/lib/fork.js	2026-10-24 20:24:01.229633400 +0800
+@@ -1,8 +1,9 @@
+ // om fork — copy a project into a new frame size. A new aspect ratio is a new layout, not a crop:
+ // the copy keeps the source as is, changes the root size, and leaves a comment in its inbox so the
+ // agent's `om inbox --wait` picks up the re-layout as its next job.
+-import { cpSync, existsSync } from 'node:fs';
++import { existsSync } from 'node:fs';
+ import { resolve } from 'node:path';
++import { cpTree, NOT_A_COPY_OF_A_PROJECT } from './fsx.js';
+ import { addComment } from './inbox.js';
+ import { OmError, openProject, readSource, writeSource } from './project.js';
+ 
+@@ -63,7 +64,7 @@
+   const src = openProject(source);
+   const target = resolve(dest);
+   if (existsSync(target)) throw new OmError(`${target} already exists — pick a new folder (om never overwrites a project)`);
+-  cpSync(src.root, target, { recursive: true, filter: (p) => !/[\\/](out|\.om|snapshots)([\\/]|$)/.test(p.slice(src.root.length)) });
++  cpTree(src.root, target, { filter: (rel) => !NOT_A_COPY_OF_A_PROJECT.test(rel) });
+   const project = openProject(target);
+   const { html, token } = readSource(project);
+   const r = resizeRoot(html, size.width, size.height);
+diff -ruN '--exclude=.om' '--exclude=out' '--exclude=node_modules' _orig/cli/lib/fsx.js repo/cli/lib/fsx.js
+--- a/cli/lib/fsx.js	1970-01-01 08:00:00.000000000 +0800
++++ b/cli/lib/fsx.js	2026-10-24 20:24:53.761347200 +0800
+@@ -0,0 +1,31 @@
++// Windows-safe recursive copy.
++//
++// node's fs.cpSync(..., { recursive: true }) hard-kills the process (exit 127, nothing on stdout or
++// stderr) on Windows with Node 22.22 — it takes `om new` / `om fork` down halfway through the copy and
++// leaves a project whose vendor/ is missing the clip libs, while `om` still reports success. A manual
++// walk uses only mkdir + copyFile, which behave on both platforms.
++import { copyFileSync, mkdirSync, readdirSync, statSync } from 'node:fs';
++import { dirname, join } from 'node:path';
++
++// Copy `from` to `to`. `filter(rel, dst, src)` returns false to skip a file or a whole folder;
++// `rel` is the posix-style path below `from`, which is what callers actually want to test.
++export function cpTree(from, to, { filter = () => true, force = true } = {}) {
++  const walk = (src, dst, rel) => {
++    if (filter(rel, dst, src) === false) return;
++    let st;
++    try { st = statSync(src); } catch { return; }
++    if (st.isDirectory()) {
++      mkdirSync(dst, { recursive: true });
++      for (const name of readdirSync(src)) walk(join(src, name), join(dst, name), rel ? `${rel}/${name}` : name);
++    } else {
++      mkdirSync(dirname(dst), { recursive: true }); // a single-file copy into a folder that is not there yet
++      try { copyFileSync(src, dst); } catch (e) { if (force || e.code !== 'EEXIST') throw e; }
++    }
++  };
++  walk(from, to, '');
++  return to;
++}
++
++// How `om new` decides what a template folder must not carry into a project.
++export const NOT_A_FILM_FILE = /(^|\/)(out|\.om|snapshots)(\/|$)|(^|\/)template\.json$/;
++export const NOT_A_COPY_OF_A_PROJECT = /(^|\/)(out|\.om|snapshots)(\/|$)/;
+diff -ruN '--exclude=.om' '--exclude=out' '--exclude=node_modules' _orig/cli/lib/samples-build.js repo/cli/lib/samples-build.js
+--- a/cli/lib/samples-build.js	2026-10-22 20:19:32.000000000 +0800
++++ b/cli/lib/samples-build.js	2026-10-24 20:47:24.018040200 +0800
+@@ -156,13 +156,34 @@
+   return JSON.parse(readFileSync(f, 'utf8')).tree.filter((x) => x.type === 'blob').map((x) => x.path);
+ }
+ 
++function unpack(file, dir) {
++  // bsdtar is not a name that exists on Windows — but tar.exe there *is* bsdtar (without LZMA), and
++  // the bass and Erhu packs ship as .7z, so 7z.exe has to be in the list or the pack stops halfway.
++  const seven = file.toLowerCase().endsWith('.7z');
++  const cands = [
++    ...(seven ? [['7z', ['x', '-y', `-o${dir}`, file]], ['7za', ['x', '-y', `-o${dir}`, file]],
++      ['C:\\Program Files\\7-Zip\\7z.exe', ['x', '-y', `-o${dir}`, file]]] : []),
++    ['bsdtar', ['-xf', file, '-C', dir]],
++    ['tar', ['-xf', file, '-C', dir]],
++    ...(seven ? [] : [['unzip', ['-q', file, '-d', dir]]]),
++  ];
++  for (const [bin, args] of cands) {
++    const r = spawnSync(bin, args, { stdio: 'ignore' });
++    if (r.status === 0) return;
++    if (r.error && r.error.code === 'ENOENT') continue;   // not installed: try the next one
++  }
++  throw new OmError(`could not unpack ${file}\n  ${seven
++    ? 'this pack is a .7z and the tar that ships with Windows has no LZMA — install 7-Zip (free) so 7z.exe is on PATH, then run om samples build again'
++    : 'needs bsdtar, tar or unzip on PATH'}`);
++}
++
+ function archive(src, cache) {
+   const dir = join(cache, src.zip.split('/').pop().replace(/%2B/g, '+').replace(/\.(zip|7z)$/, ''));
+   if (!existsSync(dir)) {
+     const file = dir + (src.zip.endsWith('.7z') ? '.7z' : '.zip');
+     if (spawnSync('curl', ['-sfL', src.zip, '-o', file]).status !== 0) throw new OmError(`could not download ${src.zip}`);
+     mkdirSync(dir, { recursive: true });
+-    if (spawnSync('bsdtar', ['-xf', file, '-C', dir]).status !== 0) throw new OmError(`could not unpack ${file} (needs bsdtar)`);
++    unpack(file, dir);
+   }
+   const files = [];
+   const walk = (d) => { for (const e of readdirSync(d)) { const p = join(d, e); statSync(p).isDirectory() ? walk(p) : files.push(p); } };
+diff -ruN '--exclude=.om' '--exclude=out' '--exclude=node_modules' _orig/cli/lib/voice.js repo/cli/lib/voice.js
+--- a/cli/lib/voice.js	2026-10-22 20:19:32.000000000 +0800
++++ b/cli/lib/voice.js	2026-10-24 20:26:27.933985000 +0800
+@@ -500,7 +500,14 @@
+   renameSync(part, file);
+ }
+ 
+-const KOKORO_SETUP = 'uv venv -p 3.12 ~/.cache/huashu-motion/tts-venv && uv pip install -p ~/.cache/huashu-motion/tts-venv/bin/python kokoro-onnx soundfile';
++// The venv lives at ~/.cache/huashu-motion/tts-venv on every platform, but Windows puts the
++// interpreter in Scripts\python.exe and there is no `~` for the shell to expand, so the one-time
++// command has to be written per platform — a macOS command printed on Windows is a dead end.
++const VENV = join(homedir(), '.cache', 'huashu-motion', 'tts-venv');
++const VENV_PY = process.platform === 'win32' ? join(VENV, 'Scripts', 'python.exe') : join(VENV, 'bin', 'python');
++const KOKORO_SETUP = process.platform === 'win32'
++  ? `uv venv -p 3.12 "${VENV}" && uv pip install -p "${VENV_PY}" kokoro-onnx soundfile`
++  : 'uv venv -p 3.12 ~/.cache/huashu-motion/tts-venv && uv pip install -p ~/.cache/huashu-motion/tts-venv/bin/python kokoro-onnx soundfile';
+ const KOKORO_FILES = 'https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/';
+ const KOKORO_PY = join(dirname(fileURLToPath(import.meta.url)), 'kokoro.py');
+ 
+@@ -509,7 +516,7 @@
+ function kokoro(textFile, outFile, voice, speed, log = () => {}) {
+   // Our documented Kokoro venv (short path on purpose: espeak-ng silently ignores long data paths).
+   // (installs made before the rename to huashu-motion live under the old name; a venv can't be moved)
+-  const python = firstFile(...['huashu-motion', 'open-motion'].map((d) => join(homedir(), '.cache', d, 'tts-venv', 'bin', 'python')));
++  const python = firstFile(VENV_PY, ...['huashu-motion', 'open-motion'].map((d) => join(homedir(), '.cache', d, 'tts-venv', 'bin', 'python')));
+   if (!python) throw new KokoroMissing(`Kokoro TTS is not set up. One-time setup:\n  ${KOKORO_SETUP}`);
+   const model = firstFile(join(CACHE, 'tts', 'kokoro-v1.0.onnx'), join(LEGACY, 'tts', 'models', 'kokoro-v1.0.onnx')) || join(CACHE, 'tts', 'kokoro-v1.0.onnx');
+   const voices = firstFile(join(CACHE, 'tts', 'voices-v1.0.bin'), join(LEGACY, 'tts', 'voices', 'voices-v1.0.bin')) || join(CACHE, 'tts', 'voices-v1.0.bin');
+@@ -662,7 +669,7 @@
+ function whisperCli() {
+   const which = run(process.platform === 'win32' ? 'where' : 'which', ['whisper-cli']);
+   const found = which.status === 0 && which.stdout.trim().split('\n')[0];
+-  return [found, '/opt/homebrew/bin/whisper-cli', '/usr/local/bin/whisper-cli', join(LEGACY, 'whisper', 'whisper.cpp', 'build', 'bin', 'whisper-cli')].find((p) => p && existsSync(p));
++  return [found, '/opt/homebrew/bin/whisper-cli', '/usr/local/bin/whisper-cli', join(homedir(), '.local', 'bin', 'whisper-cli.exe'), join(homedir(), '.local', 'bin', 'whisper-cli'), join(LEGACY, 'whisper', 'whisper.cpp', 'build', 'bin', 'whisper-cli')].find((p) => p && existsSync(p));
+ }
+ 
+ function fromRecording(file, text, keep, tmp, opts, log) {
+@@ -682,7 +689,7 @@
+     const wav16 = join(tmp, 'asr16.wav');
+     ffmpeg(['-i', wav, '-ar', '16000', '-ac', '1', '-c:a', 'pcm_s16le', wav16], 'resampling for ASR');
+     const cli = whisperCli();
+-    if (!cli) throw new OmError(`whisper is not installed — brew install whisper-cpp (macOS) or build whisper.cpp${text ? '; or --asr off for silence alignment' : ''}`);
++    if (!cli) throw new OmError(`whisper-cli is not installed — macOS: brew install whisper-cpp; Windows: build whisper.cpp or skip ASR${text ? '; use --asr off to align from the silence in the recording, which needs no ASR at all' : '; there is no transcript to fall back on, so pass --text or install whisper'}`);
+     if (!existsSync(modelPath)) download(`https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-${model}.bin`, modelPath, log, `the whisper ${model} model (~${model.startsWith('small') ? '490' : model.startsWith('base') ? '150' : '?'} MB)`);
+     log(`transcribing with whisper ${model} (${lang})…`);
+     const args = ['-m', modelPath, '-l', lang, '-ojf', '-of', join(tmp, 'asr'), '-np', '-nfa', '--dtw', model.replace(/-/g, '.'), wav16];
+diff -ruN '--exclude=.om' '--exclude=out' '--exclude=node_modules' _orig/cli/om.js repo/cli/om.js
+--- a/cli/om.js	2026-10-22 20:19:32.000000000 +0800
++++ b/cli/om.js	2026-10-24 20:23:44.867195200 +0800
+@@ -1,9 +1,10 @@
+ #!/usr/bin/env node
+ // om — the huashu-motion command line. Agents and people use the same commands.
+ import { spawn, spawnSync } from 'node:child_process';
+-import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
++import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+ import { dirname, join, resolve } from 'node:path';
+ import { fileURLToPath } from 'node:url';
++import { cpTree, NOT_A_FILM_FILE } from './lib/fsx.js';
+ import { OmError, openProject, readSource, readVariables, scan, setVariables, undo, writeSource, snapshot } from './lib/project.js';
+ import { claim, comments, pending, resolve as resolveComment, setStatus } from './lib/inbox.js';
+ import { findChrome, chromeVersion, NO_CHROME } from './lib/browser.js';
+@@ -76,7 +77,7 @@
+   const target = resolve(dir);
+   // a folder that already holds research or assets is fine; one that already holds a film is not
+   if (existsSync(join(target, 'index.html'))) throw new OmError(`${target} already has an index.html — pick a new folder (om never overwrites a project)`);
+-  cpSync(from, target, { recursive: true, force: false, errorOnExist: false, filter: (src) => !/[\\/](out|\.om|snapshots|template\.json)([\\/]|$)/.test(src.slice(from.length)) });
++  cpTree(from, target, { force: false, filter: (rel) => !NOT_A_FILM_FILE.test(rel) });
+   return target;
+ }
+ 
+@@ -118,8 +119,8 @@
+       // templates don't each carry their own copy in the repository.
+       let meta = {};
+       try { meta = JSON.parse(readFileSync(join(tpl, 'template.json'), 'utf8')); } catch {}
+-      for (const [from, to] of Object.entries(meta.copy || {})) cpSync(join(PKG, from), join(dir, to), { recursive: true });
+-      cpSync(join(PKG, 'runtime', 'om.js'), join(dir, 'vendor', 'om.js')); // OM.clock / OM.region / OM.cue, ready when needed
++      for (const [from, to] of Object.entries(meta.copy || {})) cpTree(join(PKG, from), join(dir, to));
++      cpTree(join(PKG, 'runtime', 'om.js'), join(dir, 'vendor', 'om.js')); // OM.clock / OM.region / OM.cue, ready when needed
+       return out(`created ${dir}\nnext: om studio ${pos[0]}`);
+     }
+ 

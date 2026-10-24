@@ -1,0 +1,8 @@
+Cinzel                 400 700          
+Cormorant Garamond     500i 500 700     
+EB Garamond            400i 400 600     
+IM Fell English        400i 400         
+Playfair Display       400i 700i 700    
+Press Start 2P         400              
+Poppins                600 700 800      
+Josefin Sans           700              

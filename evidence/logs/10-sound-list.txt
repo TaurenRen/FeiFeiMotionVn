@@ -1,0 +1,50 @@
+Effects for OM.sfx(name, at, { gain, pan, pitch, note, dur }):
+  pop      a small element appears (note: scale degree)
+  tick     tiny UI tick, a bar or row arriving
+  click    mouse or button click
+  whoosh   something sweeps past (0.5 s, peaks on the hit)
+  whip     fast camera whip / slide-out
+  thud     a card or object lands on the desk
+  impact   a title slams in (big, use once or twice)
+  paper    paper, a sticky note or photo slapped down
+  stamp    a rubber stamp thumps down
+  ding     a bell: something is right / done (note: scale degree)
+  chime    two rising bell notes: a reveal, the end card
+  sparkle  glitter: a highlight, a star
+  count    a number counting up (dur; dense then slowing, like expo.out)
+  riser    a swell that ends on the hit (dur)
+  draw     a marker or pen stroke (dur) — underlines, circles
+  type     keyboard typing (dur)
+  boing    a spring: a jump, a playful reaction
+  slide    slide whistle falling (dur)
+  hit      a short punch for a hard cut on the beat (kick + click; tech montages)
+  subdrop  an 808 sub falling away under a drop or a big reveal (dur)
+  reverse  a reversed cymbal swelling into the hit (dur; ends on `at`)
+  glitch   a digital stutter burst: a glitch cut, data corrupting, a screen switching
+  shutter  camera shutter: a photo, a screenshot
+
+Products for OM.music({ product }) — three directions each, picked by the film's seed (brand or id); variant: 0–2 or seed: n to choose or reroll:
+  devtool    developer tools, productivity SaaS   pulse · lofi · synthwave
+  ai         AI models, big launches              cinematic · ambient · pulse:dark
+  hardware   hardware, devices, tech objects      cinematic · pulse · piano
+  consumer   consumer apps, lifestyle             acoustic · funk · mallet
+  cute       cute, pets, casual, toys             pizzicato · acoustic:ukulele · chiptune
+  creative   creator and design tools             lofi · funk · acoustic
+  game       games and entertainment              chiptune · synthwave · trap
+  data       finance, data, enterprise            pulse · piano · ambient
+  explainer  education, explainers, science       mallet · piano · lofi
+  calm       health, meditation, quiet focus      ambient · piano · guofeng:dizi
+  guofeng    Chinese culture and brands           guofeng · guofeng:erhu · guofeng:guochao
+  hype       fashion, sport, high energy          trap · funk · synthwave
+
+Styles for OM.music({ style }) (style:variant where listed):
+  mallet     mallets, kalimba and e-piano re-voiced every scene; friendly explainer, the art-motion speedrun score
+  pulse      clean synth-pop pulse: sidechained pad, offbeat synth bass, four-on-the-floor; SaaS, dev tools, AI products  [dark]
+  lofi       dusty Rhodes ninths, swung boom-bap, vinyl crackle; cozy, human — creator tools, journaling, study
+  funk       dorian vamp, popping octave bass, clav on the sixteenths, brass stabs; confident, fun consumer apps
+  trap       half-time trap: sliding 808, rolling hats, snare on three, dark bells; bold, hype, drops  [phonk]
+  chiptune   8-bit: pulse-wave arps and lead, triangle bass, noise drums; games, retro, playful dev tools
+  ambient    no drums: slow pads, a low drone, glass twinkles in a big room; deep tech, science, calm
+  piano      felt piano, broken chords and a simple tune, strings at the peak; emotional, human stories, hardware
+  cinematic  hybrid trailer: string ostinato, taiko, horns, a braam on the drop; epic launches, big model releases
+  pizzicato  pizzicato oom-pah, glockenspiel, finger snaps, a little swing; cute, pets, quirky toys

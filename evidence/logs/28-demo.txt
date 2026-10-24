@@ -1,0 +1,5 @@
+copied the showcase to D:\02-短视频\WB视频创作\huashu-motion实测-20261024\proj\demo
+studio  http://localhost:4849/
+project D:\02-短视频\WB视频创作\huashu-motion实测-20261024\proj\demo
+
+Agent loop: om inbox D:\02-短视频\WB视频创作\huashu-motion实测-20261024\proj\demo --wait   (Ctrl-C to stop the studio)

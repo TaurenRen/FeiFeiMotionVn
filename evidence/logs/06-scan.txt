@@ -1,0 +1,40 @@
+{
+  "composition": "film",
+  "width": 1920,
+  "height": 1080,
+  "duration": null,
+  "variables": [
+    {
+      "id": "titleWord",
+      "type": "string",
+      "label": "开场主词",
+      "value": "AI 写代码"
+    },
+    {
+      "id": "titleSub",
+      "type": "string",
+      "label": "开场辅句",
+      "value": "的三个阶段"
+    },
+    {
+      "id": "item1",
+      "type": "string",
+      "label": "第 1 项主词（清空就少一页）",
+      "value": "补全"
+    },
+    {
+      "id": "item1Sub",
+      "type": "string",
+      "label": "第 1 项辅句",
+      "value": "它补完下一行"
+    },
+    {
+      "id": "item1Key",
+      "type": "string",
+      "label": "第 1 项辅句里要着色的词",
+      "value": "下一行"
+    },
+    {
+      "id": "item1Label",
+      "type": "string",
+      "label": "第 1 项左上小标签",

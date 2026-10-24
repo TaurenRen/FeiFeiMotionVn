@@ -1,0 +1,4 @@
+studio  http://localhost:4848/
+project D:\02-短视频\WB视频创作\huashu-motion实测-20261024\proj\film
+
+Agent loop: om inbox ../proj/film --wait   (Ctrl-C to stop the studio)
