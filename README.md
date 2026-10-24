@@ -1,7 +1,7 @@
 # huashu-motion · Windows 实测与补丁
 
 > 上一次有人问「这个 skill 在 Windows 上能用吗」，答案是「目前只在 macOS 上实测过」。
-> 这份仓库就是那个答案的实测版：**24 项能力逐条跑过、3 个跨平台缺陷修了、一支 26.9 秒的片子交付了**。
+> 这份仓库就是那个答案的实测版：**28 项能力逐条跑过、3 个跨平台缺陷修了、一支 26.9 秒的片子交付了**。
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Tested on](https://img.shields.io/badge/tested-Windows%2011%20%C2%B7%20Node%2022.22.2-blue)]()

@@ -9,8 +9,9 @@ description: 在 Windows 上用 huashu-motion（花叔的「一键直出产品�
 配乐自己写 ABC 谱现场演奏；在浏览器编辑器里按 `C` 点画面留评论，agent 只改那一处。
 
 上游自述「目前只在 macOS 上实测过」。本 skill 是 Windows 侧的实测结论 + 操作纪律 + 三道验收门。
-2026-10-24 在 Windows 11 + Node 22.22.2 + Chrome 155 + FFmpeg 上完整走通：24 项能力里 21 项开箱可用，
-3 项需补丁或替代路径，最终交付 26.9 秒 1080p30 成片（渲 35–42s）。
+2026-10-24 在 Windows 11 + Node 22.22.2 + Chrome 155 + FFmpeg 上完整走通：28 项能力里 22 项开箱可用，
+3 项（`om new`/`om demo`/`om fork`）原版静默失败需打补丁，1 项缺系统组件（7-Zip），1 项要换路径（口播），
+最终交付 26.9 秒 1080p30 成片（渲 35–42s）。
 
 源码与证据：`github.com/TaurenRen/huashu-motion-win32`（含补丁、验收门、谱生成器、studio 驱动脚本）。
 
