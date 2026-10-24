@@ -1,1 +1,36 @@
 samples  573 files from 9 sources
+samples  50/573
+warning  Samples/A3v12.flac: download failed
+warning  Samples/A4v12.flac: download failed
+warning  Samples/A5v12.flac: download failed
+warning  Samples/A0v12.flac: download failed
+warning  Samples/F#1v8.flac: download failed
+warning  Samples/A2v12.flac: download failed
+warning  Samples/F#2v8.flac: download failed
+warning  Samples/A1v12.flac: download failed
+warning  Samples/D#1v8.flac: download failed
+samples  100/573
+samples  150/573
+warning  Strings/Viola Section/susvib/ViolaEns_susvib_B2_v2_1.wav: download failed
+warning  Strings/Viola Section/susvib/ViolaEns_susvib_D3_v2_1.wav: download failed
+warning  Strings/Viola Section/susvib/ViolaEns_susvib_F3_v2_1.wav: download failed
+warning  Strings/Viola Section/susvib/ViolaEns_susvib_E4_v2_1.wav: download failed
+warning  Strings/Viola Section/susvib/ViolaEns_susvib_E2_v2_1.wav: download failed
+warning  Strings/Viola Section/susvib/ViolaEns_susvib_D5_v2_1.wav: download failed
+warning  Strings/Viola Section/susvib/ViolaEns_susvib_G2_v2_1.wav: download failed
+warning  Strings/Viola Section/susvib/ViolaEns_susvib_G4_v2_1.wav: download failed
+warning  Strings/Cello Section/susvib/susvib_A2_v1_1.wav: download failed
+warning  Strings/Cello Section/susvib/susvib_B1_v1_1.wav: download failed
+warning  Strings/Cello Section/susvib/susvib_B3_v1_1.wav: download failed
+warning  Strings/Cello Section/susvib/susvib_C1_v1_1.wav: download failed
+warning  Strings/Cello Section/susvib/susvib_C3_v1_1.wav: download failed
+warning  Strings/Cello Section/susvib/susvib_D2_v1_1.wav: download failed
+warning  Strings/Cello Section/susvib/susvib_D4_v1_1.wav: download failed
+warning  Strings/Cello Section/susvib/susvib_E1_v1_1.wav: download failed
+warning  Strings/Cello Section/susvib/susvib_E3_v1_1.wav: download failed
+warning  Strings/Cello Section/susvib/susvib_F2_v1_1.wav: download failed
+warning  Strings/Cello Section/susvib/susvib_F4_v1_1.wav: download failed
+warning  Strings/Cello Section/susvib/susvib_G1_v1_1.wav: download failed
+warning  Strings/Cello Section/susvib/susvib_G3_v1_1.wav: download failed
+warning  Strings/Cello Section/susvib/susvib_A2_v3_1.wav: download failed
+warning  Strings/Cello Section/susvib/susvib_B1_v3_1.wav: download failed

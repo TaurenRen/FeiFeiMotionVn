@@ -1,3 +1,3 @@
 share    D:\02-短视频\WB视频创作\huashu-motion实测-20261024\proj\film\out\share
-  out/share/film-v5.gif              0.0s–10.0s + 25.3s–26.9s, 640px 15 fps, 8.4 MB
+  out/share/film-v6.gif              0.0s–10.0s + 25.3s–26.9s, 640px 15 fps, 8.5 MB
   out/share/share.md                 write the post into it (the user's language), then show the user

@@ -1,9 +1,8 @@
-# huashu-motion 实测报告 · Windows 11 / Node 22.22.2
+# FeiFeiMotionVn 验收报告 · Windows 11 / Node 22.22.2
 
-> 对象：[`alchaincyf/huashu-motion`](https://github.com/alchaincyf/huashu-motion) v0.3.1（commit 2026-10-22）
-> 出处：微信公众号「花叔」2026-10-18《Huashu-motion正式发布！让你一键直出商业级产品宣传片！》
+> 被测：FeiFeiMotionVn v0.3.1-win32（渲染引擎 huashu-motion v0.3.1，MIT）
 > 实测时间：2026-10-24 · 机器：Windows 11 + Node 22.22.2 + Chrome 155 + FFmpeg N-118431
-> 作者原话：「目前只在 macOS 上实测过。」——这份报告就是那句话在另一台机器上的答案。
+> 引擎文档自述：「目前只在 macOS 上实测过。」——这份报告是它在另一台机器上的验收结论。
 
 ---
 
@@ -19,7 +18,7 @@
 
 其余全部实测通过，包括最核心的三件事：**指着画面改的闭环**、**先写谱再拍片的作曲模式**、**渲染前后的两道自检**。
 
-一支 26.9 秒、1080p30、带自写配乐和 15 处音效的片子，从 `om new` 到 `out/*.mp4` 在这台机器上花了 **42 秒**渲染（片长 1.56×）。这支配乐和画面都是 huashu-motion 自己做的，片子讲的就是这次实测本身：
+一支 26.9 秒、1080p30、带自写配乐和 15 处音效的片子，从 `om new` 到 `out/*.mp4` 在这台机器上花了 **42 秒**渲染（片长 1.56×）。这支配乐和画面都是引擎自己做的，片子讲的就是这次实测本身：
 
 [`evidence/films/film-windows-test.mp4`](evidence/films/film-windows-test.mp4) · [`evidence/films/film-windows-test.gif`](evidence/films/film-windows-test.gif)
 
@@ -212,7 +211,7 @@ NOTE  still at 9.37–11.97s, 15.2–16.77s, 23.23–26.87s
 
 ## 4. 竞品/横向：它和省事的方案比，值不值
 
-| | huashu-motion | Remotion（代码） | 剪映（拖时间线） | Seedance 类（文生视频） |
+| | FeiFeiMotionVn | Remotion（代码） | 剪映（拖时间线） | Seedance 类（文生视频） |
 |---|---|---|---|---|
 | 出片形态 | 一支网页 = 一支片，代码可 diff | React 组件，工程化最强 | 私有草稿格式 | 像素级生成 |
 | 逐帧确定性 | ✅ 每帧只由代码和时间决定 | ✅ | ⚠️ 预览与导出偶有差异 | ❌ 每次不同 |
@@ -227,11 +226,12 @@ NOTE  still at 9.37–11.97s, 15.2–16.77s, 23.23–26.87s
 
 ---
 
-## 5. 复现路径
+## 5. 复现路径（本仓库）
 
 ```powershell
-git clone https://github.com/alchaincyf/huashu-motion.git
-cd huashu-motion
+git clone https://github.com/TaurenRen/FeiFeiMotionVn.git ; cd FeiFeiMotionVn
+git clone https://github.com/alchaincyf/huashu-motion.git .engine      # 引擎
+pwsh -File patchespply.ps1 -Repo .engine                            # 跨平台补丁
 # 1) 打 Windows 补丁
 .\path\to\patches\apply.ps1 -Repo .
 # 2) 体检
@@ -248,15 +248,15 @@ python scripts/qc_gate.py . my-film --render
 
 ---
 
-## 6. 诚实边界（补充作者没写的）
+## 6. 诚实边界（引擎文档没写的）
 
 - **`om undo` 只有一步**，且是"恢复上一份快照"，不是 redo 栈。实测时我 `om undo` 一次就把刚做的两处修改一起抹掉了，而且没有提示。
 - **`om check` 的 `--samples` 是抽帧检查**，不是确定性验证；同一个项目两次跑，`low-contrast` 的结论可能因为背景光池位移而不同（我遇到过 .54 通过、后来又报 4.4:1 的情况，最后把 `--dim` 提到 .62 才稳）。
 - **`om qa` 的 `still for ≥1 s` 不是失败项**，是选择题。它的原话是「fine for a reading hold or an end card」——所以我的 `qc_gate.py` 只打印不拦截；拦的是 pops、flat opening、barely moves。
 - **`om samples build` 的下载源是 `raw.githubusercontent.com`**，本网络下大文件容易超时（2.6MB 的 flac 反复断）。失败是按文件报的，重跑会续，但整体成功与否取决于网络。
 - **文章说的"约 55MB 采样"在本机只下到 60MB 源文件**，最终 `manifest.json` 没生成，所以 `om samples` 仍报 `none`。
-- 这支片子的音乐、画面、字幕都是 huashu-motion 生成的；**它自己听不见**，最后那一耳朵是我听的（−14.0 LUFS，peak −1.5 dBFS）。
+- 这支片子的音乐、画面、字幕都是引擎生成的；**它自己听不见**，最后那一耳朵是我听的（−14.0 LUFS，peak −1.5 dBFS）。
 
 ---
 
-MIT · 报告与补丁随仓库；huashu-motion 本体版权与许可见上游。
+MIT · 报告、脚本与补丁随本仓库；渲染引擎 huashu-motion 的版权与许可见其仓库（MIT）。

@@ -1,4 +1,4 @@
-// Drive the huashu-motion studio over CDP: press C, click the frame, type, send.
+// Drive the FeiFeiMotionVn studio over CDP: press C, click the frame, type, send.
 // No dependencies — Node 22 has a global WebSocket.
 //
 //   node tools/drive_studio.mjs <studio-url> <out-dir> [x] [y]

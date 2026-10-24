@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build a bar-accurate ABC score from a compact spec, and refuse to write one that is off.
 
-Why this exists — the trap in huashu-motion's composer mode
+Why this exists — the trap in the engine's composer mode
 -----------------------------------------------------------
 `om sound` fits a written score to the picture: every `!mark:name!` has to sound on the timeline
 label `scene:name`, so the tempo is bent between marks. A stretch with the wrong number of bars does

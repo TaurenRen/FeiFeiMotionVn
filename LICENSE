@@ -22,6 +22,8 @@ SOFTWARE.
 
 ---
 
-The patches in this repository modify huashu-motion, which is MIT licensed and
-copyright (c) 花叔 Huashu — https://github.com/alchaincyf/huashu-motion
-The test film and screenshots in evidence/ were made with that project.
+The patches in this repository modify the huashu-motion rendering engine, which is
+MIT licensed and copyright (c) Huashu - https://github.com/alchaincyf/huashu-motion
+That notice is kept because patches/files/ hold copies of its source, which its
+license requires. Everything else here (scripts, docs, the acceptance gate, the
+film) is new work in this repository.

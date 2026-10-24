@@ -1,6 +1,6 @@
-# Apply the Windows fixes to a huashu-motion checkout.
+# Apply the FeiFeiMotionVn Windows fixes to an engine checkout.
 #
-#   powershell -ExecutionPolicy Bypass -File apply.ps1 -Repo C:\path\to\huashu-motion
+#   powershell -ExecutionPolicy Bypass -File apply.ps1 -Repo C:\path\to\engine
 #
 # Two routes, in order:
 #   1. git apply  - keeps any local work, fails cleanly if the context moved
@@ -18,7 +18,7 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $repoPath = (Resolve-Path $Repo).Path
 $om = Join-Path $repoPath 'cli\om.js'
 
-if (-not (Test-Path $om)) { throw "no cli\om.js under $repoPath — is that a huashu-motion checkout?" }
+if (-not (Test-Path $om)) { throw "no cli\om.js under $repoPath - is that the engine checkout?" }
 
 $files = @(
   'cli\om.js',

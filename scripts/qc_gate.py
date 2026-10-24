@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""The three gates a huashu-motion film has to pass before anyone sees it.
+"""The three gates a FeiFeiMotionVn film has to pass before anyone sees it.
 
-    python qc_gate.py <path-to-huashu-motion> <project-dir> [--render]
+    python qc_gate.py <path-to-engine> <project-dir> [--render]
 
 Gate 1  om doctor   the machine can render at all (Node, FFmpeg, encoders, Chrome)
 Gate 2  om check    the film is structurally sound before a single frame is rendered

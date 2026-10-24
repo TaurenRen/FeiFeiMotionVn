@@ -24,7 +24,7 @@ if hasattr(sys.stdout, 'reconfigure'):
 
 GH = os.environ.get('GH_BIN', r'D:/WorkBuddy/.workbuddy/binaries/tools/bin/gh.exe')
 OWNER = 'TaurenRen'
-NAME = 'huashu-motion-win32'
+NAME = 'FeiFeiMotionVn'
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 TMP = os.path.join(REPO, '.sync-tmp')
 
